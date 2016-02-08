@@ -21,7 +21,7 @@ echo '<hr/><hr/>';
 echo '<table cellspacing="1" cellpadding="1" border="0" width="900">';
 echo '<thead>';
 echo '<th>Time</th>';
-echo '<th>Event</th>';
+echo '<th>Event/Summary</th>';
 echo '<th>Room/Location</th>';
 echo '</thead>';
 $sortedEvents   = $ical->sortEventsWithOrder($events);
