@@ -26,7 +26,7 @@ echo '<th>Room/Location</th>';
 echo '</thead>';
 $sortedEvents   = $ical->sortEventsWithOrder($events);
 foreach ($sortedEvents as $event) {
-    $unixTime  = date('Y-M-d H:i a', $ical->iCalDateToUnixTimestamp($event['DTSTART']));
+    $unixTime  = date('Y-M-d h:i a', $ical->iCalDateToUnixTimestamp($event['DTSTART']));
     echo '<tr>';
     echo '<td>' . $unixTime . '</td>';
     echo '<td>' . @$event['SUMMARY'] . '</td>';
@@ -34,6 +34,36 @@ foreach ($sortedEvents as $event) {
     echo '</tr>';
 }
 
-echo '<tr><td colspan="3"><hr/><hr/></td>';
+echo '<tr><td colspan="3"><hr/><hr/></td></tr>';
 echo '</table>';
+
+
+echo '<table cellspacing="1" cellpadding="1" border="0" width="900">';
+    echo '<tr>';
+    echo '<td colspan="3"><b>Next Event</b></td>';
+    echo '</tr>';
+echo '<tr><td colspan="3"><hr/><hr/></td></tr>';
+
+$upcomingEvents   = $ical->eventsFromRange(date('Y-m-d h:i:s'));
+foreach ($upcomingEvents as $event) {
+    $unixTime  = date('Y-M-d h:i a', $ical->iCalDateToUnixTimestamp($event['DTSTART']));
+    echo '<tr>';
+    echo '<td>' . $unixTime . '</td>';
+    echo '<td>' . @$event['SUMMARY'] . '</td>';
+    echo '<td>' . @$event['LOCATION'] . '</td>';
+    echo '</tr>';
+}
+
+    echo '<tr><td colspan="3"></td></tr>';
+    echo '<tr><td colspan="3"></td></tr>';
+    echo '<tr><td colspan="3"></td></tr>';
+
+    echo '<tr>';
+    echo '<td><b>Commences</b></td>';
+    echo '<td>'.date('Y-M-d h:i a', $ical->iCalDateToUnixTimestamp($upcomingEvents[0]['DTSTART'])).'</td>';
+    echo '<td></td>';
+    echo '</tr>';
+echo '<tr><td colspan="3"><hr/><hr/></td></tr>';
+echo '</table>';
+
 ?>
