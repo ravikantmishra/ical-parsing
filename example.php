@@ -12,8 +12,8 @@ echo "<br />\n";
 echo '<b>The number of events:</b> ';
 echo $ical->event_count;
 echo "<br />\n";
-echo '<b>The number of todos:</b> ';
-echo $ical->todo_count;
+//echo '<b>The number of todos:</b> ';
+//echo $ical->todo_count;
 echo "<br />\n";
 echo '<hr/><hr/>';
 
@@ -32,24 +32,8 @@ foreach ($sortedEvents as $event) {
     echo '<td>' . @$event['SUMMARY'] . '</td>';
     echo '<td>' . @$event['LOCATION'] . '</td>';
     echo '</tr>';
-
-    /*
-    echo '<b>SUMMARY: </b>' . @$event['SUMMARY'] . "<br />\n";
-    echo '<b>DTSTART: </b>' . $event['DTSTART'] . ' - UNIX-Time: ' . $ical->iCalDateToUnixTimestamp($event['DTSTART']) . "<br />\n";
-    echo '<b>DTEND: </b>' . $event['DTEND'] . "<br />\n";
-    echo '<b>DTSTAMP: </b>' . $event['DTSTAMP'] . "<br />\n";
-    echo '<b>UID: </b>' . @$event['UID'] . "<br />\n";
-    echo '<b>CREATED: </b>' . @$event['CREATED'] . "<br />\n";
-    echo '<b>LAST-MODIFIED: </b>' . @$event['LAST-MODIFIED'] . "<br />\n";
-    echo '<b>DESCRIPTION: </b>' . @$event['DESCRIPTION'] . "<br />\n";
-    echo '<b>LOCATION: </b>' . @$event['LOCATION'] . "<br />\n";
-    echo '<b>SEQUENCE: </b>' . @$event['SEQUENCE'] . "<br />\n";
-    echo '<b>STATUS: </b>' . @$event['STATUS'] . "<br />\n";
-    echo '<b>TRANSP: </b>' . @$event['TRANSP'] . "<br />\n";
-    echo '<b>ORGANIZER: </b>' . @$event['ORGANIZER'] . "<br />\n";
-    echo '<b>ATTENDEE(S): </b>' . @$event['ATTENDEE'] . "<br />\n";
-    echo '<hr/>';
-    */
 }
 
+echo '<tr><td colspan="3"><hr/><hr/></td>';
+echo '</table>';
 ?>
