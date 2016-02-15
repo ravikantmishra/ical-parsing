@@ -41,19 +41,44 @@ class ICal
      *
      * @return Object The iCal Object
      */
-    public function __construct($filename=false)
+    public function __construct()
     {
-        if (!$filename) {
-            return false;
-        }
-
-        if (is_array($filename)) {
-            $lines = $filename;
-        } else {
-            $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        }
-
-        return $this->initLines($lines);
+        
+    }
+    
+    public function getEventsByFileName($filename=false){
+    	if (!$filename) {
+    		return false;
+    	}
+    	
+    	if (is_array($filename)) {
+    		$lines = $filename;
+    	} else {
+    		$lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    	}
+    	
+    	return $this->initLines($lines);
+    }
+    
+    
+    public function findAllFiles($dir)
+    {
+    	$root = scandir($dir);
+    	foreach($root as $value)
+    	{
+    		if($value === '.' || $value === '..') {
+    			continue;
+    		}
+    		if(is_file("$dir/$value")){
+    			$result[]="$dir/$value";
+    			continue;
+    		}
+    		foreach($this->findAllFiles("$dir/$value") as $value)
+    		{
+    			$result[]	= $value;
+    		}
+    	}
+    	return $result;
     }
 
 
@@ -88,6 +113,7 @@ class ICal
         } else {
             foreach ($lines as $line) {
                 $line = rtrim($line); // Trim trailing whitespace
+                
                 $add  = $this->keyValueFromString($line);
 
                 if ($add === false) {
@@ -648,9 +674,10 @@ class ICal
      *
      * @return {mixed}
      */
-    public function eventsFromRange($rangeStart = false, $rangeEnd = false)
+    public function eventsFromRange($rangeStart = false, $rangeEnd = false, $myevents=false)
     {
-        $events = $this->sortEventsWithOrder($this->events(), SORT_ASC);
+    	$myevents 	= $myevents ? $myevents : $this->events();
+        $events 	= $this->sortEventsWithOrder($myevents, SORT_ASC);
 
         if (!$events) {
             return false;
@@ -677,7 +704,7 @@ class ICal
         foreach ($events as $anEvent) {
             $timestamp = $this->iCalDateToUnixTimestamp($anEvent['DTSTART']);
             if ($timestamp >= $rangeStart && $timestamp <= $rangeEnd) {
-                $extendedEvents[] = $anEvent;
+            	$extendedEvents[] = $anEvent;
             }
         }
 
@@ -717,4 +744,78 @@ class ICal
 
         return $extendedEvents;
     }
+	
+	/**
+	 */
+	public function dateDiff($time1, $time2, $precision = 6) {
+		// If not numeric then convert texts to unix timestamps
+		if (! is_int ( $time1 )) {
+			$time1 = strtotime ( $time1 );
+		}
+		if (! is_int ( $time2 )) {
+			$time2 = strtotime ( $time2 );
+		}
+		
+		// If time1 is bigger than time2
+		// Then swap time1 and time2
+		if ($time1 > $time2) {
+			$ttime = $time1;
+			$time1 = $time2;
+			$time2 = $ttime;
+		}
+		
+		// Set up intervals and diffs arrays
+		$intervals = array (
+				//'year',
+				//'month',
+				//'day',
+				'hour',
+				'minute',
+				'second' 
+		);
+		$diffs = array ();
+		
+		// Loop thru all intervals
+		foreach ( $intervals as $interval ) {
+			// Create temp time from time1 and interval
+			$ttime = strtotime ( '+1 ' . $interval, $time1 );
+			// Set initial values
+			$add = 1;
+			$looped = 0;
+			// Loop until temp time is smaller than time2
+			while ( $time2 >= $ttime ) {
+				// Create new temp time from time1 and interval
+				$add ++;
+				$ttime = strtotime ( "+" . $add . " " . $interval, $time1 );
+				$looped ++;
+			}
+			
+			$time1 = strtotime ( "+" . $looped . " " . $interval, $time1 );
+			$diffs [$interval] = $looped;
+		}
+		
+		$count = 0;
+		$times = array ();
+		// Loop thru all diffs
+		foreach ( $diffs as $interval => $value ) {
+			// Break if we have needed precission
+			if ($count >= $precision) {
+				break;
+			}
+			// Add value and interval
+			// if value is bigger than 0
+			if ($value > 0) {
+				// Add s if value is not 1
+				if ($value != 1) {
+					$interval .= "s";
+				}
+				// Add value and interval to times array
+				$times [] = $value; //. " " . $interval;
+				$count ++;
+			}
+		}
+		
+		// Return string with times
+		return implode ( ":", $times );
+	}
 }

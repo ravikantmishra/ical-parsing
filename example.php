@@ -1,4 +1,5 @@
-<?php 
+<?php
+/* 
 require 'IcalReader.php';
 $ical   = new ICal('Hawks.ics');
 $events = $ical->events();
@@ -65,5 +66,36 @@ foreach ($upcomingEvents as $event) {
     echo '</tr>';
 echo '<tr><td colspan="3"><hr/><hr/></td></tr>';
 echo '</table>';
+<!DOCTYPE html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="Content-Language" content="en">
+		<meta name="viewport" content="width=device-width"/>
+		<!-- refresh page in every 60 seconds -->
+		<meta http-equiv="refresh" content="60" />
+		<title>Upcoming Event</title>
+	</head>
+	<body>
 
+*/
 ?>
+
+<html> 
+    <head> 
+         
+    </head> 
+    <body> 
+       <table width="100%" align="center">
+       	<tr>
+       		<td>
+       		<iframe id="theFrame" src="http://www.streamvision.com.au/strangerrichie/screen-two.php" style="width:100%;" frameborder="0">
+</iframe>
+</td>
+       	</tr>
+       </table> 
+    </body> 
+</html>
+
+
+
+
