@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="Content-Language" content="en">
+		<!-- refresh page in every 60 seconds 
+		<meta http-equiv="refresh" content="60" /> -->
+		<title>Upcoming Event</title>
+	</head>
+	<body>
 	<table cellspacing="1" cellpadding="1" border="0" style="width:720px;height:1280" align="center">
 		<thead>
 			<th align="left" height="30">Time</th>
@@ -45,3 +54,6 @@ if(count($todayEvents)){
 	echo '</tr>';
 }	
 ?>
+		</table>
+	</body>
+</html>

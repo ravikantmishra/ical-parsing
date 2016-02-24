@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="Content-Language" content="en">
+		<!-- refresh page in every 60 seconds 
+		<meta http-equiv="refresh" content="60" /> -->
+		<title>Upcoming Event</title>
+	</head>
+	<body>
+
 		<table cellspacing="1" cellpadding="1" border="0" style="width:720px;height:1280" align="center">
 			<thead>
 				<th colspan="3" colspan="center" height="80" style="font-size:22px">Next Event</th>
@@ -32,3 +42,5 @@
 	}
 	?>
 		</table>
+	</body>
+</html>
