@@ -35,8 +35,8 @@ foreach($files as $key=>$file){
 	}
 }
 
-$startDate		= date('Y-m-d H:i');
-$endDate		= date('Y-m-d').' 23:59';
+$startDate		= date('Y-m-d');
+$endDate		= date('Y-m-d').' 23:59:00';
 $todayEvents    = $ical->eventsFromRange($startDate, $endDate, $e);
 
 if(count($todayEvents)){

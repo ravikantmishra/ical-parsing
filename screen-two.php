@@ -21,8 +21,10 @@
 	$filename	= isset($_GET['file']) ? trim($_GET['file']) : 'Auditorium.ics';  
 	$events 	= $ical->getEventsByFileName('ics-files/' . $filename);
 	
-	$endDate		= date('Y-m-d').' 23:59';
-	$upcomingEvents = $ical->eventsFromRange(date('Y-m-d h:i'), $endDate);
+	$startDate		= date('Y-m-d H:i');
+	$endDate		= date('Y-m-d').' 23:59:00';
+	$upcomingEvents = $ical->eventsFromRange($startDate, $endDate);
+	
 	if(count($upcomingEvents)){
 		$unixTime  = date('h:i a', $ical->iCalDateToUnixTimestamp($upcomingEvents[0]['DTSTART']));
 	
