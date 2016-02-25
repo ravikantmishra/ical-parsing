@@ -430,9 +430,17 @@ class ICal
                             $anEvent['DTEND'] = date('Ymd\THis', $recurring_timestamp + $event_timestamp_offset);
 
                             $search_date = $anEvent['DTSTART'];
-                            $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) {
-                                return is_string($val) && strpos($search_date, $val) === 0;
-                            });
+                            
+                            $is_excluded = array(); 
+                            foreach($anEvent['EXDATE_array'] as $val){
+                                if(is_string($val) && strpos($search_date, $val) === 0){
+                                    $is_excluded[] = $val;
+                                }
+                            }
+                            //Commented this code because below anonymous function was not working on php[5.1]
+                            //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) {
+                                //return is_string($val) && strpos($search_date, $val) === 0;
+                            //});
 
                             if (!$is_excluded) {
                                 $events[] = $anEvent;
@@ -473,7 +481,15 @@ class ICal
                                     $anEvent['DTEND'] = date('Ymd\THis', $day_recurring_timestamp + $event_timestamp_offset);
 
                                     $search_date = $anEvent['DTSTART'];
-                                    $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
+                                    
+                                    $is_excluded = array();   
+                                    foreach($anEvent['EXDATE_array'] as $val){
+                                        if(is_string($val) && strpos($search_date, $val) === 0){
+                                            $is_excluded[] = $val;
+                                        }
+                                    }
+                                    //Commented this code because below anonymous function was not working on php[5.1]
+                                    //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
 
                                     if (!$is_excluded) {
                                         $events[] = $anEvent;
@@ -504,7 +520,15 @@ class ICal
                                     $anEvent['DTEND'] = date('Ymd\THis', $this->iCalDateToUnixTimestamp($anEvent['DTSTART']) + $event_timestamp_offset);
 
                                     $search_date = $anEvent['DTSTART'];
-                                    $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
+                                    
+                                    $is_excluded = array();   
+                                    foreach($anEvent['EXDATE_array'] as $val){
+                                        if(is_string($val) && strpos($search_date, $val) === 0){
+                                            $is_excluded[] = $val;
+                                        }
+                                    }
+                                    //Commented this code because below anonymous function was not working on php[5.1]
+                                    //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
 
                                     if (!$is_excluded) {
                                         $events[] = $anEvent;
@@ -526,7 +550,15 @@ class ICal
                                     $anEvent['DTEND'] = date('Ymd\THis', $this->iCalDateToUnixTimestamp($anEvent['DTSTART']) + $event_timestamp_offset);
 
                                     $search_date = $anEvent['DTSTART'];
-                                    $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
+                                    
+                                    $is_excluded = array();   
+                                    foreach($anEvent['EXDATE_array'] as $val){
+                                        if(is_string($val) && strpos($search_date, $val) === 0){
+                                            $is_excluded[] = $val;
+                                        }
+                                    }
+                                    //Commented this code because below anonymous function was not working on php[5.1]
+                                    //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
 
                                     if (!$is_excluded) {
                                         $events[] = $anEvent;
@@ -557,7 +589,15 @@ class ICal
                                     $anEvent['DTEND'] = date('Ymd\THis', $this->iCalDateToUnixTimestamp($anEvent['DTSTART']) + $event_timestamp_offset);
 
                                     $search_date = $anEvent['DTSTART'];
-                                    $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
+                                    
+                                    $is_excluded = array();   
+                                    foreach($anEvent['EXDATE_array'] as $val){
+                                        if(is_string($val) && strpos($search_date, $val) === 0){
+                                            $is_excluded[] = $val;
+                                        }
+                                    }
+                                    //Commented this code because below anonymous function was not working on php[5.1]
+                                    //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
 
                                     if (!$is_excluded) {
                                         $events[] = $anEvent;
@@ -587,7 +627,15 @@ class ICal
                                     $anEvent['DTEND'] = date('Ymd\THis', $this->iCalDateToUnixTimestamp($anEvent['DTSTART']) + $event_timestamp_offset);
 
                                     $search_date = $anEvent['DTSTART'];
-                                    $is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
+                                    
+                                    $is_excluded = array();   
+                                    foreach($anEvent['EXDATE_array'] as $val){
+                                        if(is_string($val) && strpos($search_date, $val) === 0){
+                                            $is_excluded[] = $val;
+                                        }
+                                    }
+                                    //Commented this code because below anonymous function was not working on php[5.1]
+                                    //$is_excluded = array_filter($anEvent['EXDATE_array'], function($val) use ($search_date) { return is_string($val) && strpos($search_date, $val) === 0; });
 
                                     if (!$is_excluded) {
                                         $events[] = $anEvent;
@@ -818,4 +866,5 @@ class ICal
 		// Return string with times
 		return implode ( ":", $times );
 	}
+	
 }
