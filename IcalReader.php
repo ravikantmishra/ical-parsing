@@ -734,19 +734,19 @@ class ICal
         $extendedEvents = array();
 
         if ($rangeStart === false) {
-            $rangeStart = new DateTime();
+            $rangeStart = date('Y-m-d'); //new DateTime();
         } else {
-            $rangeStart = new DateTime($rangeStart);
+            $rangeStart = date('Y-m-d H:i', strtotime($rangeStart));//new DateTime($rangeStart);
         }
 
         if ($rangeEnd === false or $rangeEnd <= 0) {
-            $rangeEnd = new DateTime('2038/01/18');
+            $rangeEnd = date('Y-m-d H:i:s', strtotime('2038/01/18'));//new DateTime('2038/01/18');
         } else {
-            $rangeEnd = new DateTime($rangeEnd);
+            $rangeEnd = date('Y-m-d H:i:s', strtotime($rangeEnd));//new DateTime($rangeEnd);
         }
 
-        $rangeStart = $rangeStart->format('U');
-        $rangeEnd   = $rangeEnd->format('U');
+        $rangeStart = date('U', strtotime($rangeStart)); //$rangeStart->format('U')
+        $rangeEnd   = date('U', strtotime($rangeEnd)); //$rangeEnd->format('U');
 
         // Loop through all events by adding two new elements
         foreach ($events as $anEvent) {
