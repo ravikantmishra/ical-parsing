@@ -13,7 +13,6 @@
 			<th align="left">Event</th>
 			<th align="left">Room</th>
 		</thead>
-
 <?php 
 require 'IcalReader.php';
 $ical   = new ICal();
@@ -28,20 +27,28 @@ foreach($files as $key=>$file){
 		$e[$i]['UID']		= $data['UID'];
 		$e[$i]['SUMMARY']	= $data['SUMMARY'];
 		$e[$i]['LOCATION']	= isset($data['LOCATION']) ? $data['LOCATION'] : '';
-		$e[$i]['DTSTART']	= $data['DTSTART'];
+		
+		//
+		$ts 			= strtotime($data['DTSTART']);
+		date_default_timezone_set('Australia/ACT');
+		$changedDate	= date('YmdHis', $ts);
+
+		$e[$i]['DTSTART']	= $changedDate;
 		$e[$i]['DTEND']		= $data['DTEND'];
-		 
+	 
 		$i++;
 	}
 }
 
-$startDate		= date('Y-m-d');
-$endDate		= date('Y-m-d').' 23:59:00';
+echo "<pre>";
+print_r($e);
+$startDate		= '2016-03-04';//date('Y-m-d');
+$endDate		= '2016-03-04 23:59:00';//date('Y-m-d').' 23:59:00';
 $todayEvents    = $ical->eventsFromRange($startDate, $endDate, $e);
-
+print_r($todayEvents);
 if(count($todayEvents)){
 	foreach ($todayEvents as $event) {
-	    $unixTime  = date('h:i a', $ical->iCalDateToUnixTimestamp($event['DTSTART']));
+	    $unixTime  = date('Y-m-d h:i a', $ical->iCalDateToUnixTimestamp($event['DTSTART']));
 	    echo '<tr>';
 	    echo '<td align="left" height="30">' . $unixTime . '</td>';
 	    echo '<td align="left">' . @$event['SUMMARY'] . '</td>';
