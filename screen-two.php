@@ -16,20 +16,36 @@
 	<?php 
 	require 'IcalReader.php';
 	$ical   	= new ICal();
+	$i=0;
+	date_default_timezone_set('Australia/ACT');
 	
 	//Either pass filename from url eg [...... screen-two.php?file=xyz.ics] or directly put here
 	$filename	= isset($_GET['file']) ? trim($_GET['file']) : 'Auditorium.ics';  
 	$events 	= $ical->getEventsByFileName('ics-files/' . $filename);
+	foreach($events['VEVENT'] as $data){
+		$e[$i]['UID']		= $data['UID'];
+		$e[$i]['SUMMARY']	= $data['SUMMARY'];
+		$e[$i]['LOCATION']	= isset($data['LOCATION']) ? $data['LOCATION'] : '';
+	
+		//
+		$ts 			= strtotime($data['DTSTART']);
+		$changedDate	= date('YmdHis', $ts);
+	
+		$e[$i]['DTSTART']	= $changedDate;
+		$e[$i]['DTEND']		= $data['DTEND'];
+	
+		$i++;
+	}
 	
 	$startDate		= date('Y-m-d H:i');
 	$endDate		= date('Y-m-d').' 23:59:00';
-	$upcomingEvents = $ical->eventsFromRange($startDate, $endDate);
+	$upcomingEvents = $ical->eventsFromRange($startDate, $endDate, $e);
 
 	if(is_array($upcomingEvents) && count($upcomingEvents)){
-		$unixTime  = date('h:i a', $ical->iCalDateToUnixTimestamp($upcomingEvents[0]['DTSTART']));
+		$unixTime  = date('Y-m-d H:i:s', $ical->iCalDateToUnixTimestamp($upcomingEvents[0]['DTSTART']));
 	
 		echo '<tr>';
-	    echo '<td height="100">' . $unixTime . '</td>';
+	    echo '<td height="100">' . date('h:i a', strtotime($unixTime)) . '</td>';
 	    echo '<td>' . @$upcomingEvents[0]['SUMMARY'] . '</td>';
 	    echo '<td>' . @$upcomingEvents[0]['LOCATION'] . '</td>';
 	    echo '</tr>';
